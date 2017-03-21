@@ -45,15 +45,17 @@ app.get('/provinces',  (req, res) => {
 })
 
 app.get('/collection',  (req, res) => {
-
-	/*
-  db.collection('provinces').save(req.body, (err, result) => {
-      if (err) return console.log(err)
-      console.log('sauvegarder dans la BD')
-        console.log(db.collection('provinces'));
-      res.redirect('/')
-    })
-    */
+    console.log('collection')
+	fs.readFile((__dirname + "/public/text/collection_provinces.json"), function (err, data){
+		if (err) return console.log(err)
+		var objJson = JSON.parse(data);
+		for(var i = 0; i < objJson.length; i ++){
+			db.collection('provinces').save(objJson[i], (err, result) => {
+	      		if (err) return console.log(err)
+	      	})
+		}
+	    res.render('index.ejs', {provinces: })
+	})
 })
 
 
