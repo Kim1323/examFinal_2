@@ -48,12 +48,10 @@ app.get('/collection',  (req, res) => {
 	fs.readFile((__dirname + "/public/text/collection_provinces.json"), function (err, data){
 		if (err) return console.log(err)
 		var objJson = JSON.parse(data);
-		for(var i = 0; i < objJson.length; i ++){
-			db.collection('provinces').save(objJson[i], (err, result) => {
-	      		if (err) return console.log(err)
-	      		//res.render('index.ejs', {provinces: result});
-	      	})
-		}
+		db.collection('provinces').insertMany(objJson, (err, result) => {
+      		if (err) return console.log(err)
+      		res.redirect('/')
+      	})
 	})
 })
 
@@ -67,8 +65,7 @@ app.get('/ajouter',  (req, res) => {
 	}
 	db.collection('provinces').save(objAjout, (err, result) => {
   		if (err) return console.log(err)
-  		console.log(result);
-	    //res.render('index.ejs', {provinces: result});
+      	res.redirect('/')
   	})
 })
 
@@ -76,10 +73,20 @@ app.get('/detruire',  (req, res) => {
     console.log('detruire')
 	db.collection('provinces').remove({}, (err, result) => {
   		if (err) return console.log(err)
+  		res.redirect('/')
   	})
 })
 
 
 app.get('/plusieurs',  (req, res) => {
     console.log('plusieurs')
+    fs.readFile((__dirname + "/public/text/collection_provinces.json"), function (err, data){
+		if (err) return console.log(err)
+		var objJson = JSON.parse(data);
+		for(var i = 0; i < objJson.length; i ++){
+			db.collection('provinces').save(objJson[i], (err, result) => {
+	      		if (err) return console.log(err)
+	      	})
+		}
+	})
 })
