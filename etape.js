@@ -34,7 +34,9 @@ app.get('/',  (req, res) => {
 })
 
 
-fs.readFile('public/text/collection_provinces.json', 'utf8', function (err, data) {
-  if (err) throw err;
-  obj = JSON.stringify(data);
-});
+app.get('/fichier',  (req, res) => {
+	fs.readFile('public/text/collection_provinces.json', 'utf8', function (err, data) {
+	  if (err) throw err;
+	  obj = JSON.stringify(data);
+	});
+})
