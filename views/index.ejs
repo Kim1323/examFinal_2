@@ -12,17 +12,23 @@
   	  	<h2>Node.js, Express, MongoDB, EJS</h2>
   	  	<nav>
 
-  	  		<a href="http://localhost8081/fichier">1-Fichier</a>
-  	  		<a href="http://localhost8081/provinces">2-Provinces</a>
-  	  		<a href="http://localhost8081/collection">3-Collection</a>
-  	  		<a href="http://localhost8081/ajouter">4-Ajouter un document</a>
-  	  		<a href="http://localhost8081/detruire">5-Détruire</a>
-  	  		<a href="http://localhost8081/plusieurs">6-Ajouter plusieurs</a>
+  	  		<a href="http://localhost:8081/fichier">1-Fichier</a>
+  	  		<a href="http://localhost:8081/provinces">2-Provinces</a>
+  	  		<a href="http://localhost:8081/collection">3-Collection</a>
+  	  		<a href="http://localhost:8081/ajouter">4-Ajouter un document</a>
+  	  		<a href="http://localhost:8081/detruire">5-Détruire</a>
+  	  		<a href="http://localhost:8081/plusieurs">6-Ajouter plusieurs</a>
   	  	<nav>
   	  </header>
   	  <main>
 		  <table class="tableau">
-        ----------------------------------------
+        <% for(var i=0; i<provinces.length; i++) {%>
+          <tr>
+            <td><%= provinces[i].code %></td>
+            <td><%= provinces[i].nom %></td>
+            <td><%= provinces[i].capital %></td>
+          </tr>
+        <% } %>
 		  </table>
 	  </main>
 	  <footer>
