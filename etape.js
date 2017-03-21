@@ -13,13 +13,28 @@ var http = require('http');
 var url = require('url');
 var obj;
 
+
+var db // variable qui contiendra le lien sur la BD
+
+MongoClient.connect('mongodb://127.0.0.1:27017/carnet_adresse', (err, database) => {
+  if (err) return console.log(err)
+  db = database
+  app.listen(8081, () => {
+    console.log('connexion à la BD et on écoute sur le port 8081')
+  })
+})
+
+
+app.get('/',  (req, res) => {
+   console.log('la route route get / = ' + req.url)
+    var cursor = db.collection('provinces').find().toArray(function(err, resultat){
+       if (err) return console.log(err)
+    res.render('index.ejs', {provinces: resultat})
+    }) 
+})
+
+
 fs.readFile('public/text/collection_provinces.json', 'utf8', function (err, data) {
   if (err) throw err;
-  obj = data;
+  obj = JSON.stringify(data);
 });
-
-http.createServer(function(request, response) {
-  response.writeHead(200, {"Content-Type": "text/html; charset=utf-8"});
-  response.write(obj);
-  response.end();
-}).listen(8081);
