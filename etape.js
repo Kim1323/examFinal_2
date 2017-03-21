@@ -22,7 +22,6 @@ MongoClient.connect('mongodb://127.0.0.1:27017/carnet_adresse', (err, database) 
   })
 })
 
-
 app.get('/',  (req, res) => {
    console.log("allo")
     db.collection('provinces').find().toArray(function(err, resultat){
@@ -52,12 +51,11 @@ app.get('/collection',  (req, res) => {
 		for(var i = 0; i < objJson.length; i ++){
 			db.collection('provinces').save(objJson[i], (err, result) => {
 	      		if (err) return console.log(err)
+	      		//res.render('index.ejs', {provinces: result});
 	      	})
 		}
-	    //res.render('index.ejs', {provinces: })
 	})
 })
-
 
 app.get('/ajouter',  (req, res) => {
     console.log('ajouter')
@@ -70,16 +68,18 @@ app.get('/ajouter',  (req, res) => {
 	db.collection('provinces').save(objAjout, (err, result) => {
   		if (err) return console.log(err)
   		console.log(result);
-	    res.render('index.ejs', {provinces: result});
+	    //res.render('index.ejs', {provinces: result});
+  	})
+})
+
+app.get('/detruire',  (req, res) => {
+    console.log('detruire')
+	db.collection('provinces').remove({}, (err, result) => {
+  		if (err) return console.log(err)
   	})
 })
 
 
-
-app.get('/detruire',  (req, res) => {
-    console.log('ajouter')
-	db.collection('provinces').remove({}, (err, result) => {
-  		if (err) return console.log(err)
-	    res.render('index.ejs', {provinces: result});
-  	})
+app.get('/plusieurs',  (req, res) => {
+    console.log('plusieurs')
 })
