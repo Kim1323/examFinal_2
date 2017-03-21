@@ -17,7 +17,7 @@ var db // variable qui contiendra le lien sur la BD
 MongoClient.connect('mongodb://127.0.0.1:27017/carnet_adresse', (err, database) => {
   if (err) return console.log(err)
   db = database
-  app.listen(8081, () => {
+  app.listen(8080, () => {
     console.log('connexion à la BD et on écoute sur le port 8081')
   })
 })
@@ -38,8 +38,32 @@ app.get('/fichier',  (req, res) => {
 
 app.get('/provinces',  (req, res) => {
 	console.log("provinces");
+	fs.readFile((__dirname + "/public/text/collection_provinces.json"), function (err, data){
+		if (err) return console.log(err)
+		res.render('index.ejs', {provinces:JSON.parse(data)});
+	})
 })
 
 app.get('/collection',  (req, res) => {
-	console.log("collection");
+
+	/*
+  db.collection('provinces').save(req.body, (err, result) => {
+      if (err) return console.log(err)
+      console.log('sauvegarder dans la BD')
+        console.log(db.collection('provinces'));
+      res.redirect('/')
+    })
+    */
 })
+
+
+// Fonction pour mettre transformer un objet en tableau html
+function afficherObjet(monObjet){
+	var objet = "<table>";
+	for (propriete in monObjet){
+		objet += "<tr>";
+		objet += "<th>" + propriete + "</th><td>" + monObjet[propriete] + "</td>";
+		objet += "</tr>";
+	};
+	objet += "</table>";
+}
