@@ -69,6 +69,17 @@ app.get('/ajouter',  (req, res) => {
 	}
 	db.collection('provinces').save(objAjout, (err, result) => {
   		if (err) return console.log(err)
+  			console.log(result);
+  	})
+	    //res.render('index.ejs', {provinces: })
+})
+
+
+
+app.get('/detruire',  (req, res) => {
+    console.log('ajouter')
+	db.collection('provinces').remove({}, (err, result) => {
+  		if (err) return console.log(err)
   	})
 	    //res.render('index.ejs', {provinces: })
 })
