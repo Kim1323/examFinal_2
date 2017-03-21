@@ -73,7 +73,7 @@ app.get('/detruire',  (req, res) => {
     console.log('detruire')
 	db.collection('provinces').remove({}, (err, result) => {
   		if (err) return console.log(err)
-  		res.redirect('/')
+  		res.render('index.ejs', {provinces: result})
   	})
 })
 
