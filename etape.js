@@ -54,18 +54,21 @@ app.get('/collection',  (req, res) => {
 	      		if (err) return console.log(err)
 	      	})
 		}
-	    res.render('index.ejs', {provinces: })
+	    //res.render('index.ejs', {provinces: })
 	})
 })
 
 
-// Fonction pour mettre transformer un objet en tableau html
-function afficherObjet(monObjet){
-	var objet = "<table>";
-	for (propriete in monObjet){
-		objet += "<tr>";
-		objet += "<th>" + propriete + "</th><td>" + monObjet[propriete] + "</td>";
-		objet += "</tr>";
-	};
-	objet += "</table>";
-}
+app.get('/ajouter',  (req, res) => {
+    console.log('ajouter')
+    var nbRandom = Math.floor(Math.random()*100)+100;
+    var objAjout = {
+    	code : "QC",
+		nom : "Québec",
+		capital: nbRandom
+	}
+	db.collection('provinces').save(objAjout, (err, result) => {
+  		if (err) return console.log(err)
+  	})
+	    //res.render('index.ejs', {provinces: })
+})
