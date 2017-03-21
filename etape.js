@@ -83,10 +83,9 @@ app.get('/plusieurs',  (req, res) => {
     fs.readFile((__dirname + "/public/text/collection_provinces.json"), function (err, data){
 		if (err) return console.log(err)
 		var objJson = JSON.parse(data);
-		for(var i = 0; i < objJson.length; i ++){
-			db.collection('provinces').save(objJson[i], (err, result) => {
-	      		if (err) return console.log(err)
-	      	})
-		}
+		db.collection('provinces').insertMany(objJson, (err, result) => {
+      		if (err) return console.log(err)
+      		res.redirect('/')
+      	})
 	})
 })
